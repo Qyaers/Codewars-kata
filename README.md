@@ -1,4 +1,4 @@
-#Solution Kata from codewars
+# Solution Kata from codewars
 
 In this repository I publish my solutions to codewar kata.
 Currently, solutions to these problems are done in JavaScript and typescript.
