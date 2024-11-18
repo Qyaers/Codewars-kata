@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Codewars Kata Human Readable Time</title>
+</head>
+
+<body>
+	<p class="task-info">
+		Write two functions that convert a roman numeral to and from an integer value. Multiple roman numeral values will
+		be tested for each function.<br>
+		Modern Roman numerals are written by expressing each digit separately starting with the left most digit and
+		skipping any digit with a value of zero. In Roman numerals:<br>
+	<ul>
+		<li>1990 is rendered: 1000=M, 900=CM, 90=XC; resulting in MCMXC</li>
+		<li>2008 is written as 2000=MM, 8=VIII; or MMVIII</li>
+		<li>1666 uses each Roman symbol in descending order: MDCLXVI.</li>
+	</ul>
+	Input range : 1 <= n < 4000 <br>
+		In this kata 4 should be represented as IV, NOT as IIII (the "watchmaker's four").
+		</p>
+		<input type="text" class="input-number" placeholder="Enther the number">
+		<input type="text" class="input-roman-number" placeholder="Enther the Roman number">
+		<button>Run Script</button>
+		<p>Solution of task:</p>
+		<pre>
+		class RomanNumerals {
+			static roman = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1};
+			
+			static toRoman(num) {
+				let romanNum = "";
+				for (let i in this.roman) {
+					while (num >= this.roman[i]) {
+					romanNum += i;
+					num -= this.roman[i];
+					}
+				}
+				return romanNum;
+			}
+			static fromRoman(str) {
+				return str.match(/CM|CD|XC|XL|IX|IV|M|D|C|L|X|V|I/g).reduce((acc, item) => acc + this.roman[item], 0);
+			}
+		}
+	</pre>
+		<p>Solution without regex:</p>
+		<pre>
+		class RomanNumerals {
+			...
+			static fromRoman(str) {
+				let total = 0;
+				let i = 0;
+				while (i < str.length) {
+					if (i + 1 < str.length && this.roman[str[i] + str[i + 1]]) {
+					total += this.roman[str[i] + str[i + 1]];
+					i += 2;
+					} else {
+						total += this.roman[str[i]];
+						i++;
+					}
+					}
+				return total;
+			}
+		}
+	</pre>
+		<p>Result of executing script</p>
+		<span></span>
+		<script src="main.js"></script>
+</body>
+
+</html>
