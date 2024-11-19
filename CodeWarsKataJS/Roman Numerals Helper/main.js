@@ -18,10 +18,31 @@ class RomanNumerals {
 	}
 }
 
-const resoultField = document.querySelector("span");
+const resoultField = document.querySelector(".text-resoult");
+const testTextField = document.querySelector(".text-test");
+const resultTitle = document.querySelector(".resault-title");
+const visibility = true;
+
+resultTitle.style.visibility = "hidden";
+
+testTextField.innerHTML = `
+		To roman: <br>
+		2000 = ${RomanNumerals.toRoman(200)} 	-> "MM" <br>
+		1666 = ${RomanNumerals.toRoman(1666)} 	-> "MDCLXVI" <br>
+		86 = ${RomanNumerals.toRoman(1666)} -> "LXXXVI" <br>
+		1 = ${RomanNumerals.toRoman(1)}     -> "I"<br>
+		From roman: <br>
+		"MM" = ${RomanNumerals.fromRoman("MM")}     -> 2000 <br>
+		"MDCLXVI" = ${RomanNumerals.fromRoman("MDCLXVI")} -> 1666 <br>
+		"LXXXVI" = ${RomanNumerals.fromRoman("LXXXVI")} ->   86 <br>
+		"I" = ${RomanNumerals.fromRoman("I")}      ->    1 <br>
+	`;
+
+
 const runScriptBtn = document.querySelector("button")?.addEventListener(("click"), () => {
 	const dataNumber = Number(document.querySelector(".input-number")?.value);
 	const dataRomanNumber = document.querySelector(".input-roman-number")?.value;
+	resultTitle.style.visibility = "visible";
 	resoultField.innerHTML = `
 		Roman numbers convert ${RomanNumerals.toRoman(dataNumber)} <br>
 		Roman to number convert: ${RomanNumerals.fromRoman(dataRomanNumber)}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Binary multiple of 3e</title>
+</head>
+
+<body>
+	<p class="task-info">
+		In this kata, your task is to create a regular expression capable of evaluating binary strings (strings with only
+		1s and 0s) and determining whether the given string represents a number divisible by 3.
+
+		Take into account that:
+
+		An empty string might be evaluated to true (it's not going to be tested, so you don't need to worry about it -
+		unless you want)
+		The input should consist only of binary digits - no spaces, other digits, alphanumeric characters, etc.
+		There might be leading 0s.
+		Examples (Javascript)
+		<br>
+	<h2>Examples (Javascript)</h2>
+	<ul>
+		<li>multipleof3Regex.test('000') should be true</li>
+		<li>multipleof3Regex.test('001') should be false</li>
+		<li>multipleof3Regex.test('011') should be true</li>
+		<li>multipleof3Regex.test('110') should be true</li>
+		<li>multipleof3Regex.test(' abc ') should be false</li>
+	</ul>
+	</p>
+	<input type="text" class="input-number" placeholder="Enther the number">
+	<button>Run Script</button>
+	<p>Solution of task:</p>
+	<pre>
+		let multipleOf3Regex = /^(0*(1(01*0)*1)*)*$/;
+	/*
+		^: Begins of str.
+		0*: Guarantees one zero or no more zeros. What means in beginning of string can be zero zeroes or more then one zeroes.
+		(1(01*0)*1)*: The main part of the regex that checks if a number can be divided by 3.
+			1: We check that the sequence must start with one.
+			(01*0)*: This group can be more then once:
+			0: Compliant zero.
+			1*: Guarantees one 1 or no more 1 in this group.
+			0: Compliant zero.
+			Thus this group, (01*0)* corresponds to a sequence of the form 0, 010, 0110, 01110 etc. 
+			1: Compliant 1,and means what this sequence must end 1.
+		*: Also, this sequence 1(01*0)*1 can be repeated zero times or one or more than once.
+		$: End of string.
+	*/	
+	</pre>
+	<p>Result of executing script for test:</p>
+	<span class="text-test"></span>
+	<p class="resault-title">Result of executing script for input value:</p>
+	<span class="text-resoult"></span>
+	<script src="main.js"></script>
+</body>
+
+</html>

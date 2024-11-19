@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Codewars Kata | Adding Big Number</title>
+</head>
+
+<body>
+	<h1>Adding Big Number</h1>
+	<h2>Kata task</h2>
+	<p class="task-info">
+		We need to sum big numbers and we require your help.Write a function that returns the sum of two numbers. The
+		input numbers are strings and the function must return a
+		string.
+	</p>
+	<h2>Example</h2>
+	<ul>
+		<li>add("123", "321"); -> "444"</li>
+		<li>add("11", "99"); -> "110"</li>
+		<li>add('63829983432984289347293874', '90938498237058927340892374089'); -> "91002328220491911630239667963"</li>
+	</ul>
+	<h2>Notes</h2>
+	<ul>
+		<li>The input numbers are big.</li>
+		<li>The input is a string of only digits.</li>
+		<li>The numbers are positives.</li>
+	</ul>
+
+	<input type="text" class="input-number-first" placeholder="Enther the first number">
+	<input type="text" class="input-number-second" placeholder="Enther the second number">
+	<button>Run Script</button>
+	<h2>Solution of task:</h2>
+	<pre>
+		function add(a, b) {
+			a = [...a].reverse()
+			b = [...b].reverse()
+		
+			for (let i = 0; i < b.length; i++) {
+				a[i] = ~~a[i] + ~~b[i];
+				if (a[i] > 9) {
+					a[i] -= 10
+					b[i + 1] = ~~b[i + 1] + 1
+				}
+			}
+		
+			return a.reverse().join("")
+		}
+	</pre>
+	<h2>Result of script for test values:</h2>
+	<span class="text-test"></span>
+	<h2 class="resault-title">Result of executing script</h2>
+	<span class="text-resoult"></span>
+	<script src="main.js"></script>
+</body>
+
+</html>
