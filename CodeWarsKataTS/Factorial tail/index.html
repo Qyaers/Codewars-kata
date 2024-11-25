@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Codewars Kata | Factorial Tail</title>
+</head>
+
+<body>
+	<h1>Factorial tail</h1>
+	<h2>Kata task</h2>
+	</p>
+	<p class="task-info">
+		How many zeroes are at the end of the factorial of 10? 10! = 3628800, i.e. there are 2 zeroes. 16! (or 0x10!) in
+		hexadecimal would be 0x130777758000, which has 3 zeroes.<br>
+		Task is to write a function, which will find the number of zeroes at the end of (number) factorial in arbitrary
+		radix =
+		base for larger numbers.
+	<ul>
+		<li>base is an integer from 2 to 256</li>
+		<li>number is an integer from 1 to 1'000'000</li>
+	</ul>
+	<br>
+	</p>
+	<input class="input-num" type="text" placeholder="Enther the num">
+	<input class="input-base" type="text" placeholder="Enther the base">
+	<button>Run Script</button>
+	<p>Result for task:</p>
+	<pre>
+		const primeFactors = (n: number): Map<number, number> => {
+			const factors = new Map();
+			for (let divisor = 2; n >= 2; divisor++) {
+				while (n % divisor === 0) {
+				factors.set(divisor, (factors.get(divisor) || 0) + 1);
+				n /= divisor;
+				}
+			}
+			return factors;
+		};
+		
+		const countFactorInFactorial = (n: number, factor: number): number => {
+			let count = 0;
+			for (let power = factor; n >= power; power *= factor) {
+				count += Math.floor(n / power);
+			}
+			return count;
+		};
+		
+		const zeroes = (base: number, num: number) => {
+			const baseFactors = primeFactors(base);
+			return Math.min(...Array.from(baseFactors).map(([factor, exponent]) =>
+				Math.floor(countFactorInFactorial(num, factor) / exponent)));
+		};
+	</pre>
+	<h2>Result of script for test values:</h2>
+	<span class="text-test"></span>
+	<h2 class="resault-title">Result of executing script</h2>
+	<span class="text-resoult"></span>
+	<script src="main.js"></script>
+</body>
+
+</html>
