@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Codewars Kata | Sum of Intervals</title>
+</head>
+
+<body>
+	<h1>Sum of Intervals</h1>
+	<h2>Kata task</h2>
+	<p class="task-info">
+		Intervals are represented by a pair of integers in the form of an array. The first value of the interval will
+		always be less than the second value. Interval example: [1, 5] is an interval from 1 to 5. The length of this
+		interval is 4.<br>
+	</p>
+	<h2>
+		Overlapping Intervals
+	</h2>
+	<p>List containing overlapping intervals:<br>
+	<pre>
+[
+	[1, 4],
+	[7, 10],
+	[3, 5]
+]
+	</pre>
+	The sum of the lengths of these intervals is 7. Since [1, 4] and [3, 5] overlap, we can treat the interval as [1, 5],
+	which has a length of 4.
+	</p>
+	<input type="text" style="width: 230px;" placeholder="Enther array of intervals [[1,3],[5,10]]">
+	<button>Run Script</button>
+	<p>Result for task:</p>
+	<pre>
+		const removeDuplicateArrays = (arr: [number, number][]): [number, number][] => {
+			const map = new Map();
+			for (const subArray of arr) {
+				const subArrayStr = JSON.stringify(subArray);
+				map.set(subArrayStr, subArray);
+			}
+			return Array.from(map.values());
+		};
+		
+		function sumOfIntervals(intervals: [number, number][]) {
+			intervals = removeDuplicateArrays(intervals);
+			intervals.sort((a, b) => a[0] - b[0]);
+		
+			let currentInterval = intervals[0];
+			let result = 0;
+			for (let index = 1; index <= intervals.length; index++) {
+				if (index === intervals.length) {
+					result += currentInterval[1] - currentInterval[0];
+					break;
+				}
+				if (intervals[index][0] <= currentInterval[1]) {
+					currentInterval[1] = Math.max(intervals[index][1], currentInterval[1]);
+				} else {
+					result += currentInterval[1] - currentInterval[0];
+					currentInterval = intervals[index];
+				}
+			}
+			return result;
+		}
+	Or we can use Array.reduce method in sumOfIntervals:
+
+	function sumOfIntervals(intervals: [number, number][]) {
+		intervals = removeDuplicateArrays(intervals);
+		intervals.sort((a, b) => a[0] - b[0]);
+		return intervals.reduce((acc, [start, end], index, array) => {
+			if (start <= acc.currentEnd) {
+				acc.currentEnd = Math.max(acc.currentEnd, end);
+			} else {
+				acc.totalLength += acc.currentEnd - acc.currentStart;
+				acc.currentStart = start;
+				acc.currentEnd = end;
+			}
+			if (index === array.length - 1) {
+				acc.totalLength += acc.currentEnd - acc.currentStart;
+			}
+			return acc;
+		}, { totalLength: 0, currentStart: intervals[0][0], currentEnd: intervals[0][1] }).totalLength;
+	}
+	</pre>
+	<h2>Result of script for test values:</h2>
+	<span class="text-test"></span>
+	<h2 class="resault-title">Result of executing script</h2>
+	<span class="text-resoult"></span>
+	<script src="main.js"></script>
+</body>
+
+</html>
